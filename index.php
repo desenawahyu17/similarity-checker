@@ -6,6 +6,12 @@
 	<title>Similarity Checker</title>
 </head>
 <body>
+te5t
+
+
+
+
+te
 	<div class="header">
   <a href="#" id="menu-action">
     <i class="fa fa-bars"></i>
