@@ -1,3 +1,10 @@
+<?php
+ob_start();
+require_once('config/koneksi.php');
+require_once('models/database.php');
+$connection = new Database($host, $user, $pass, $database);
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,52 +24,25 @@
 </div>
 <div class="sidebar">
   <ul>
-    <li><a href="#"><i class="fa fa-tachometer"></i><span>Dashboard</span></a></li>
-    <li><a href="#"><i class="fa fa-upload"></i><span>File Dokumen</span></a></li>
-    <li><a href="#"><i class="fa fa-file-text"></i><span>Preprocessing</span></a></li>
-    <li><a href="#"><i class="fa fa-book"></i><span>Similarity</span></a></li>
+    <li><a href="?page=dashboard"><i class="fa fa-tachometer"></i><span>Dashboard</span></a></li>
+    <li><a href="?page=filedokumen"><i class="fa fa-upload"></i><span>Document File</span></a></li>
+    <li><a href="?page=preprocessing"><i class="fa fa-file-text"></i><span>Preprocessing</span></a></li>
+    <li><a href="?page=similarity"><i class="fa fa-book"></i><span>Similarity</span></a></li>
 </div> 
-<!-- Content -->
-<main class="main">
-<div class="row">
-	<div class="col-lg-4">
-      	<div class="card text-center">		  
-			<div class="card-header bg-info text-light"><h2>Data Upload</h2></div>
-        	<div class="card-body" align="center">
-          		<i class="fa fa-upload fa-3x mb-3"></i>
-          		<h2>Ada <?php echo 187; ?> Data</h2>
-        	</div>
-      	</div>
-    </div>
-    <div class="col-lg-4">
-      	<div class="card text-center">		  
-			<div class="card-header bg-info text-light"><h2>Data Preprocessing</h2></div>
-        	<div class="card-body" align="center">
-          		<i class="fa fa-file-text fa-3x mb-3"></i>
-          		<h2>Ada <?php echo 187; ?> Data</h2>
-        	</div>
-      	</div>
-    </div>
-    <div class="col-lg-4">
-      	<div class="card text-center">		  
-			<div class="card-header bg-info text-light"><h2>Data Similarity</h2></div>
-        	<div class="card-body" align="center">
-          		<i class="fa fa-book fa-3x mb-3"></i>
-          		<h2>Ada <?php echo 187; ?> Data</h2>
-        	</div>
-      	</div>
-    </div> 
-	<div class="col-lg-4 mt-5 pt-5 offset-md-4">
-		<form action="">
-			<div class="custom-file">
-				<input type="file" class="custom-file-input" id="customFile">
-				<label class="custom-file-label" for="customFile">Choose file</label>
-			</div>
-		</form>
-	</div>
+<div id="page-wrapper">
+<?php
+    if(@$_GET['page'] == 'dashboard' || @$_GET['page'] == '') {
+	include "views/dashboard.php";
+	} else if(@$_GET['page'] == 'filedokumen') {
+    include "views/filedokumen.php";
+  } else if(@$_GET['page'] == 'preprocessing') {
+    include "views/preprocessing.php";
+  } else if(@$_GET['page'] == 'similarity') {
+    include "views/similarity.php";
+  }
+?>
 </div>
-	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-	<script type="text/javascript" src="assets/js/style.js"></script>
-</main>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script type="text/javascript" src="assets/js/style.js"></script>
 </body>
 </html>
