@@ -1,8 +1,8 @@
 <?php
-ob_start();
-require_once('config/koneksi.php');
-require_once('models/database.php');
-$connection = new Database($host, $user, $pass, $database);
+  ob_start();
+  require_once('config/koneksi.php');
+  require_once('models/database.php');
+  $connection = new Database($host, $user, $pass, $database);
 ?>
 
 <!DOCTYPE html>
@@ -10,6 +10,8 @@ $connection = new Database($host, $user, $pass, $database);
 <head>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
+  <link rel="stylesheet" type="text/css" href="assets/css/sweetalert2.min.css">
+  <link rel="stylesheet" type="text/css" href="assets/dataTables/datatables.min.css">
 	<title>Similarity Checker</title>
 </head>
 <body>
@@ -44,5 +46,12 @@ $connection = new Database($host, $user, $pass, $database);
 </div>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script type="text/javascript" src="assets/js/style.js"></script>
+<script type="text/javascript" src="assets/js/sweetalert2.all.min.js"></script>
+<script type="text/javascript" src="assets/DataTables/datatables.min.js"></script>
+<script type="text/javascript">
+  $(document).ready( function () {
+    $('#datatables').DataTable();
+  } );
+</script>
 </body>
 </html>
