@@ -29,7 +29,9 @@
     <li><a href="?page=dashboard"><i class="fa fa-tachometer"></i><span>Dashboard</span></a></li>
     <li><a href="?page=filedokumen"><i class="fa fa-upload"></i><span>Document File</span></a></li>
     <li><a href="?page=preprocessing"><i class="fa fa-file-text"></i><span>Preprocessing</span></a></li>
+    <li><a href="?page=labeling"><i class="fa fa-tag"></i><span>Labeling</span></a></li>
     <li><a href="?page=similarity"><i class="fa fa-book"></i><span>Similarity</span></a></li>
+    <li><a href=""><i class="fa fa-pie-chart"></i><span>Grafik</span></a></li>
 </div> 
 <div id="page-wrapper">
 <?php
@@ -41,6 +43,8 @@
     include "views/preprocessing.php";
   } else if(@$_GET['page'] == 'similarity') {
     include "views/similarity.php";
+  } else if(@$_GET['page'] == 'labeling') {
+    include "views/labeling.php";
   }
 ?>
 </div>
