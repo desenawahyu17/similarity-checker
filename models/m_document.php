@@ -14,6 +14,11 @@ class dokumen{
 		return $query;
 	}
 
+	public function hapus($id){
+		$db = $this->mysqli->conn;
+		$db->query("DELETE FROM document WHERE id = '$id'") or die($db->error);
+	}
+
 	function __destruct() {
 		$db = $this->mysqli->conn;
 		$db->close();

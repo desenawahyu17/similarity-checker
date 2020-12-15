@@ -1,3 +1,13 @@
+<?php
+ob_start();
+require_once('../config/koneksi.php');
+require_once('../models/database.php');
+$connection = new Database($host, $user, $pass, $database);
+include "../models/m_preprocessing.php";
+$preprocessing = new preprocessing($connection);
+if(@$_GET['act'] == ''){
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,6 +16,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Preprocessing</title>
     <link rel="stylesheet" type="text/css" href="../assets/css/sweetalert2.min.css">
+    <script type="text/javascript" src="assets/js/style.js"></script>
     <script type="text/javascript" src="../assets/js/sweetalert2.all.min.js"></script>
 </head>
 <body>
@@ -14,38 +25,21 @@
 if (isset($_POST['savepreprocessing'])) {
     include('../config/koneksi.php');
     include('../librarys/sastrawi/vendor/autoload.php');
-    // require_once __DIR__.'../librarys/sastrawi/vendor/autoload.php';
 
     $flag = 0;
 
     // AMMBIL DATA TABEL SLANGWORD
-    $sql = "SELECT * FROM slangword";
-    $statement = $db->prepare($sql);
-    $statement->execute();
-    $result = $statement->fetchAll();
-    $array_slang = array();
-    foreach($result as $results => $key) {
-        $array_slang[$key[1]] = $key[2];
-    }
-
+    $ambil_slangword= $preprocessing->tampil_slangword();
+    
     //AMBIL DATA TABEL STOPWORD
-    $sql = "SELECT * FROM stopword";
-    $statement = $db->prepare($sql);
-    $statement->execute();
-    $result = $statement->fetchAll();
-    $array_stop = array();
-    foreach($result as $results => $key) {
-        $array_stop[] = $key[1];
-    }
+    $ambil_stopword= $preprocessing->tampil_stopword();
 
     // AMBIL DATA document
-    $sql = "SELECT * FROM document";
-    $statement = $db->prepare($sql);
-    $statement->execute();
-    $result = $statement->fetchAll();
-    foreach($result as $results => $key) {
+    $ambil_dokumen= $preprocessing->tampil_dokumen();
+    while($data = $ambil_dokumen->fetch_object()) {
+
         // CASEFOLDING
-        $string_kecil = strtolower($key['content']);
+        $string_kecil = strtolower($data -> content);
         
         // MENGHILANGKAN URL
         $regex = "@(https?://([-\w\.]+[-\w])+(:\d+)?(/([\w/_\.#-]*(\?\S+)?[^\.\s])?)?)@";
@@ -54,20 +48,30 @@ if (isset($_POST['savepreprocessing'])) {
         // MENGHILANGKAN ANGKA DAN TANDA BACA
         $regex = "/[^a-z]+/i";
         $string_noAngkaKarakter = preg_replace($regex, ' ', $string_noUrl);
-        
+       
         // KONVERSI SLANGWORD KE KATA ASLINYA
-        $string_noSlangword = str_replace(array_keys($array_slang), $array_slang, $string_noAngkaKarakter);
+        while($data = $ambil_slangword->fetch_object()){
+            $string_noSlangword = str_replace($data -> slangword, $data ->kata_asli, $string_noAngkaKarakter);
+         }
 
         // MENGHILANGKAN STOPWORD
-        $string = explode(" ", $string_noSlangword);
-        $string_noStopword = array();
-        foreach($string as $value) {
-            if(!in_array($value, $array_stop)) {
-                $string_noStopword[] = " ".$value;
-            }	
-        }
-        
-        $string = implode(" ", $string_noStopword);
+        while($data = $ambil_stopword->fetch_object()){
+            $string_noStopword = str_replace($data -> stopword, " ", $string_noSlangword);
+         }
+        // $string = explode(" ", $string_noSlangword);
+        // $string_noStopword = array();    
+        // foreach($string as $value) {
+        //     while($data = $ambil_stopword->fetch_object()){
+        //         if($value == $data -> stopword) {
+        //             $string_noStopword[] = " ".$value;
+        //         }
+        //     }            	
+        // }
+        // $string = implode(" ", $string_noStopword);
+        echo '<pre>';
+        var_dump($string_noStopword);
+       echo '</pre>';
+       die();
         
         // STEMMING
         $stemmerFactory = new \Sastrawi\Stemmer\StemmerFactory();
@@ -122,3 +126,6 @@ if (isset($_POST['savepreprocessing'])) {
 ?>
 </body>
 </html>
+<?php
+} 
+?>

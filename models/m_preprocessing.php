@@ -14,6 +14,27 @@ class preprocessing{
 		return $query;
 	}
 
+	public function tampil_slangword($id = null){
+		$db	= $this->mysqli->conn;
+		$sql = "SELECT * FROM slangword";
+		$query = $db->query($sql) or die ($db->error);
+		return $query;
+	}
+
+	public function tampil_stopword($id = null){
+		$db	= $this->mysqli->conn;
+		$sql = "SELECT * FROM stopword";
+		$query = $db->query($sql) or die ($db->error);
+		return $query;
+	}
+
+	public function tampil_dokumen($id = null){
+		$db	= $this->mysqli->conn;
+		$sql = "SELECT * FROM document";
+		$query = $db->query($sql) or die ($db->error);
+		return $query;
+	}
+
 	function __destruct() {
 		$db = $this->mysqli->conn;
 		$db->close();

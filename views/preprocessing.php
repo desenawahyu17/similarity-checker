@@ -25,19 +25,19 @@ if(@$_GET['act'] == ''){
 						<th>Content</th>
 	            	</tr>
 	       		</thead>
-        		<tbody>
+				<tbody class="read-more-less" data-id="200">
         		<?php 
 		            $no= 1;
 		            $tampil= $preprocessing->tampil();
 		            while($data = $tampil->fetch_object()){
 		               ?>
 		               <tr>
-		                  <td align="center"><?php echo $no++.".";?></td>
-		                  <td><?php echo $data->nim ?></td>
-		                  <td><?php echo $data->uploaddate ?></td>
-                          <td><?php echo $data->title ?></td>
-		                  <td><?php echo $data->file_size ?> byte</td>
-		                  <td><?php echo $data->content ?></td>
+		                  <td width="5%" align="center"><?php echo $no++.".";?></td>
+		                  <td width="10%"><?php echo $data->nim ?></td>
+		                  <td width="10%"><?php echo $data->uploaddate ?></td>
+                          <td width="20%"><?php echo $data->title ?></td>
+		                  <td width="10%"><?php echo $data->file_size ?> byte</td>
+		                  <td width="45%" class="read-toggle" data-id="<?php echo $data->nim ?>"><?php echo $data->content ?></td>
 		                </tr> 
 		                <?php
             	 }

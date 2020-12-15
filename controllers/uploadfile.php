@@ -27,7 +27,7 @@ if (isset($_POST['savefile'])) {
         $file_size		= $_FILES['uploadfile']['size'];
         $file_tmp		= $_FILES['uploadfile']['tmp_name'];
         if(in_array($file_ext, $allowed_ext) === true){
-            if($file_size < 1048576){
+            if($file_size != 0 && $file_size < 1048576){
                 try {
                     $location = '../files/'.$file_name;
                     $tanggal = date('Y-m-d H:i:s');
@@ -60,7 +60,7 @@ if (isset($_POST['savefile'])) {
                                     timer: 2000,
                                 })
                                 .then(function() {
-                                    window.location = "http://localhost/Tugas%20Kuliah/Semester%207%20(Skripsweet)/Similarity_Checker/?page=dashboard";
+                                    window.location = "http://localhost/Tugas%20Kuliah/Semester%207%20(Skripsweet)/Similarity_Checker/?page=uploaddokumen";
                                 });
                             </script>
                         ';
@@ -73,7 +73,7 @@ if (isset($_POST['savefile'])) {
                                 timer: 2000,
                                 })
                                 .then(function() {
-                                    window.location = "http://localhost/Tugas%20Kuliah/Semester%207%20(Skripsweet)/Similarity_Checker/?page=dashboard";
+                                    window.location = "http://localhost/Tugas%20Kuliah/Semester%207%20(Skripsweet)/Similarity_Checker/?page=uploaddokumen";
                                 });
                             </script>
                         ';
@@ -84,7 +84,7 @@ if (isset($_POST['savefile'])) {
                 }
             }
             else{
-                echo '
+                echo ' 
                     <script>
                         swal ( "Try Again!" , "File Size More Than 1 MB" ,  "warning" , {
                         buttons: false,
@@ -92,7 +92,7 @@ if (isset($_POST['savefile'])) {
                         timer: 2000,
                         })
                         .then(function() {
-                            window.location = "http://localhost/Tugas%20Kuliah/Semester%207%20(Skripsweet)/Similarity_Checker/?page=dashboard";
+                            window.location = "http://localhost/Tugas%20Kuliah/Semester%207%20(Skripsweet)/Similarity_Checker/?page=uploaddokumen";
                         });
                     </script>
                 ';  
@@ -106,7 +106,7 @@ if (isset($_POST['savefile'])) {
                 timer: 2000,
                 })
                 .then(function() {
-                    window.location = "http://localhost/Tugas%20Kuliah/Semester%207%20(Skripsweet)/Similarity_Checker/?page=dashboard";
+                    window.location = "http://localhost/Tugas%20Kuliah/Semester%207%20(Skripsweet)/Similarity_Checker/?page=uploaddokumen";
                 });
             </script>
         ';
