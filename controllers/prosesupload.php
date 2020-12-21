@@ -21,11 +21,11 @@ if (isset($_POST['savefile'])) {
     
     try{
         $allowed_ext	= array('pdf');
-        $file_name		= $_FILES['uploadfile']['name'];
+        $file_name		= $_FILES['prosesupload']['name'];
         $tmp            = explode('.', $file_name);
         $file_ext       = end($tmp);
-        $file_size		= $_FILES['uploadfile']['size'];
-        $file_tmp		= $_FILES['uploadfile']['tmp_name'];
+        $file_size		= $_FILES['prosesupload']['size'];
+        $file_tmp		= $_FILES['prosesupload']['tmp_name'];
         if(in_array($file_ext, $allowed_ext) === true){
             if($file_size != 0 && $file_size < 1048576){
                 try {

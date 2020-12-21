@@ -31,11 +31,11 @@ if(@$_GET['act'] == ''){
                         <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <form enctype="multipart/form-data" action="controllers/uploadfile.php" method="POST">
+                    <form enctype="multipart/form-data" action="controllers/prosesupload.php" method="POST">
                         <div class="modal-body">
                             File(.pdf)*
                             <div class="custom-file">
-                                <input name="uploadfile" type="file" class="custom-file-input" id="customFile">
+                                <input name="prosesupload" type="file" class="custom-file-input" id="customFile">
                                 <label class="custom-file-label" for="customFile">Choose file</label>
                                 <small class="text-warning">*| Ukuran File Maksimal adalah 1MB</small>
                             </div>
@@ -52,7 +52,7 @@ if(@$_GET['act'] == ''){
         <div class="table-responsive mt-3">
                 <table class="table table-bordered table-hover table-striped" id="datatables">
                     <thead>
-                        <tr>
+                        <tr align="center">
                             <th>No.</th>
                             <th>Nim</th>
                             <th>Upload Date</th>
@@ -64,8 +64,8 @@ if(@$_GET['act'] == ''){
                     <tbody class="read-more-less" data-id="200">
                         <?php 
                             $no= 1;
-                            $tampil= $dokumen->tampil();
-                            while($data = $tampil->fetch_object()){
+                            $tampil_dokumen= $dokumen->select_dokumen();
+                            while($data = $tampil_dokumen->fetch_object()){
                         ?>
                             <tr>
                                 <td width="5%" align="center"><?php echo $no++.".";?></td>
@@ -75,12 +75,12 @@ if(@$_GET['act'] == ''){
                                 <td width="50%" align="justify" class="read-toggle" data-id="<?php echo $data->nim ?>"><?php echo $data->content ?></td>
                                 <td width="10%" align="center">
                                     <!-- Button trigger modal -->
-                                    <button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#hapus">
+                                    <button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#hapus<?php echo $data -> id ?>">
                                     <i class="fa fa-trash-o"></i> Delete
                                     </button>
 
                                     <!-- Modal -->
-                                    <div class="modal fade" id="hapus" tabindex="-1" aria-labelledby="HapusLabel" aria-hidden="true">
+                                    <div class="modal fade" id="hapus<?php echo $data -> id ?>" tabindex="-1" aria-labelledby="HapusLabel" aria-hidden="true">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                         <div class="modal-header">
@@ -90,12 +90,12 @@ if(@$_GET['act'] == ''){
                                             </button>
                                         </div>
                                         <div class="modal-body">
-                                        <p class="text-danger">Are you sure you want to Delete?<p>
+                                        <div class="text-danger">Yakin akan menghapus data ini?<div>
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                                             
-                                            <a href="?page=uploaddokumen&act=del&id=<?=$data->id; ?>">
+                                            <a href="?page=uploaddokumen&act=del&id=<?php echo $data -> id ?>">
                                             <button class="btn btn-danger">Delete</button></a>
                                         </div>
                                         </div>
@@ -114,10 +114,9 @@ if(@$_GET['act'] == ''){
 </main>
 <?php
 } else if(@$_GET['act'] == 'del'){
-	$data_awal = $dokumenhapus->tampil($_GET['id'])->fetch_object()->location;
-	unlink("files/".$data_awal);
-
-	$dokumenhapus->hapus($_GET['id']);
+    $hapusdata = $dokumen->select_id($_GET['id'])->fetch_object()->location;
+	unlink(substr($hapusdata,3));
+    $dokumen->delete_dokumen($_GET['id']);
 	header("location: ?page=uploaddokumen");
 }
 ?>

@@ -2,8 +2,9 @@
 ob_start();
 require_once('../config/koneksi.php');
 require_once('../models/database.php');
+require_once('../models/m_preprocessing.php');
+require_once('../librarys/sastrawi/vendor/autoload.php');
 $connection = new Database($host, $user, $pass, $database);
-include "../models/m_preprocessing.php";
 $preprocessing = new preprocessing($connection);
 if(@$_GET['act'] == ''){
 ?>
@@ -21,25 +22,27 @@ if(@$_GET['act'] == ''){
 </head>
 <body>
 <?php
-// var_dump($_POST); die();
 if (isset($_POST['savepreprocessing'])) {
-    include('../config/koneksi.php');
-    include('../librarys/sastrawi/vendor/autoload.php');
 
     $flag = 0;
 
     // AMMBIL DATA TABEL SLANGWORD
-    $ambil_slangword= $preprocessing->tampil_slangword();
+    $ambil_slangword= $preprocessing->select_slangword();
     
     //AMBIL DATA TABEL STOPWORD
-    $ambil_stopword= $preprocessing->tampil_stopword();
+    $ambil_stopword= $preprocessing->select_stopword();
+    $array_stop = array();
+    while($data = $ambil_stopword->fetch_object()){
+    // foreach($result as $results => $key) {
+        $array_stop[] = $data -> stopword;
+    }
 
     // AMBIL DATA document
-    $ambil_dokumen= $preprocessing->tampil_dokumen();
-    while($data = $ambil_dokumen->fetch_object()) {
-
+    $ambil_dokumen= $preprocessing->select_dokumen();
+    while($data_dokumen = $ambil_dokumen->fetch_object()) {
+        $string ="";
         // CASEFOLDING
-        $string_kecil = strtolower($data -> content);
+        $string_kecil = strtolower($data_dokumen -> content);
         
         // MENGHILANGKAN URL
         $regex = "@(https?://([-\w\.]+[-\w])+(:\d+)?(/([\w/_\.#-]*(\?\S+)?[^\.\s])?)?)@";
@@ -55,41 +58,27 @@ if (isset($_POST['savepreprocessing'])) {
          }
 
         // MENGHILANGKAN STOPWORD
-        while($data = $ambil_stopword->fetch_object()){
-            $string_noStopword = str_replace($data -> stopword, " ", $string_noSlangword);
-         }
-        // $string = explode(" ", $string_noSlangword);
-        // $string_noStopword = array();    
-        // foreach($string as $value) {
-        //     while($data = $ambil_stopword->fetch_object()){
-        //         if($value == $data -> stopword) {
-        //             $string_noStopword[] = " ".$value;
-        //         }
-        //     }            	
-        // }
-        // $string = implode(" ", $string_noStopword);
-        echo '<pre>';
-        var_dump($string_noStopword);
-       echo '</pre>';
-       die();
+        $string = explode(" ", $string_noSlangword);
+        $string_noStopword = array();
+        foreach($string as $value) {
+            if(!in_array($value, $array_stop)) {
+                $string_noStopword[] = " ".$value;
+            }	
+        }
+        $string = implode(" ", $string_noStopword);
         
         // STEMMING
         $stemmerFactory = new \Sastrawi\Stemmer\StemmerFactory();
         $stemmer  = $stemmerFactory->createStemmer();
-        
         $string = $stemmer->stem($string);
-        
         try {
-            /*      START INSERT STATEMENT        */
-            $sql = "INSERT INTO preprocessing (id, nim, uploaddate, file_size, content) VALUE (:id, :nim, :uploaddate, :file_size, :content)";
-            $statement = $db->prepare($sql);
-            $statement->bindParam(":id", $key['id']);
-            $statement->bindParam(":nim", $key['nim']);
-            $statement->bindParam(":uploaddate", $key['uploaddate']);
-            $statement->bindParam(":file_size", $key['file_size']);
-            $statement->bindParam(":content", $key['content']);
-            $statement->execute();
-            /*       END INSERT STATEMENT        */
+            $id= $data_dokumen -> id;
+            $nim= $data_dokumen -> nim;
+            $uploaddate= $data_dokumen -> uploaddate;
+            $file_size= $data_dokumen -> file_size;
+            $content= $string;
+            $preprocessing->simpan_preprocessing($id, $nim, $uploaddate, $file_size, $content);
+
             
             if($flag == 0) {
                 echo '
@@ -112,15 +101,6 @@ if (isset($_POST['savepreprocessing'])) {
             var_dump($string);
             echo '</pre>';
         }
-        
-        
-        // // TOKENISASI
-        // $tokenisasi = explode(" ", $string);
-        // foreach($tokenisasi as $key => $value) {
-        //     $string_dataBersih['isi_text'][] = $value;
-        // }
-        
-        // $string_dataBersih['isi_text'] = array_unique($string_dataBersih['isi_text']);  
     }
 }
 ?>
