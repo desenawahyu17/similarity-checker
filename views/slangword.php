@@ -1,7 +1,13 @@
 <?php
 ob_start();
 include "models/m_slangword.php";
-$slangword = new slangword($connection);
+$fungsi_slangword = new slangword($connection);
+if($_POST['tambah']){
+	$slangword = $_POST['slangword'];
+	$kata_asli = $_POST['kata_asli'];
+	$fungsi_slangword->tambah($slangword,$kata_asli);
+	header("location: ?page=slangword");
+}				
 if(@$_GET['act'] == ''){
 ?>
 
@@ -32,7 +38,7 @@ if(@$_GET['act'] == ''){
 					<tbody class="read-more-less" data-id="200">
 						<?php 
 							$no= 1;
-							$tampil_slangword= $slangword->select_slangword();
+							$tampil_slangword= $fungsi_slangword->select_slangword();
 							while($data = $tampil_slangword->fetch_object()){
 						?>
 							<tr>
@@ -65,7 +71,7 @@ if(@$_GET['act'] == ''){
 						<h4 class="modal-title">Add Data Slangword</h4>
 						<button type="button" class="close pt-4" data-dismiss="modal">&times;</button>
 					</div>
-					<form action="" method="POST" enctype="multipart/form-data">
+					<form action="" method="POST">
 						<div class="modal-body">
 							<div class="form-group">
 								<label class="control-label" for="slangword">Slangword</label>
@@ -81,17 +87,7 @@ if(@$_GET['act'] == ''){
 							<input type="submit" class="btn btn-info" name="tambah" value="Simpan">
 						</div>
 					</form>
-					<?php
-					if(@$_POST['tambah']){
-						$slangword = $_POST['slangword'];
-						$kata_asli = $_POST['kata_asli'];
-						$simpan = mysqli_query($slangword,$kata_asli);
-						if($simpan){
-							$slangword->tambah($slangword,$kata_asli);
-							header("location: ?page=slangword");
-						}
-					}
-					?>
+					
 				</div>
 			</div>
 		</div>
@@ -103,7 +99,7 @@ if(@$_GET['act'] == ''){
 ?>
 <?php
 } else if(@$_GET['act'] == 'del'){
-	$slangword->hapus($_GET['id_slangword']);
+	$fungsi_slangword->hapus($_GET['id_slangword']);
 	header("location: ?page=slangword");
 }
 ?>

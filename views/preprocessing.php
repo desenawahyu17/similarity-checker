@@ -71,9 +71,9 @@ if(@$_GET['act'] == ''){
                                 <td width="10%" align="center">
                                    <!-- Button trigger modal -->
 								   <a href="?page=preprocessing&act=del&id=<?=$data->id; ?>" onclick="return confirm('Yakin akan menghapus data ini?')">
-									<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#hapus_preprocessing">
-									<i class="fa fa-trash-o"></i> Delete
-									</button>
+										<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#hapus_preprocessing">
+											<i class="fa fa-trash-o"></i> Delete
+										</button>
 									</a>
 									</div>
                                 </td>

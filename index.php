@@ -47,6 +47,8 @@
     include "views/preprocessing.php";
   } else if(@$_GET['page'] == 'similarity') {
     include "views/similarity.php";
+  } else if(@$_GET['page'] == 'getpreprocessing') {
+    include "views/getpreprocessing.php";
   }
 ?>
 </div>

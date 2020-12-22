@@ -9,7 +9,7 @@ class preprocessing{
 
 	public function select_preprocessing($id = null){
 		$db	= $this->mysqli->conn;
-		$sql = "SELECT nim,uploaddate,file_size,content FROM preprocessing";
+		$sql = "SELECT * FROM preprocessing";
 		$query = $db->query($sql) or die ($db->error);
 		return $query;
 	}
@@ -37,7 +37,7 @@ class preprocessing{
 
 	public function simpan_preprocessing($id, $nim, $uploaddate, $file_size, $content){
 		$db	= $this->mysqli->conn;
-		$db->query("INSERT INTO preprocessing (id, nim, uploaddate, file_size, content) VALUE ('$id', '$nim', '$uploaddate', '$file_size', '$content')") or die($db->error);
+		$db->query("INSERT IGNORE preprocessing (id, nim, uploaddate, file_size, content) VALUE ('$id', '$nim', '$uploaddate', '$file_size', '$content')") or die($db->error);
 	}
 
 	public function hapus($id){

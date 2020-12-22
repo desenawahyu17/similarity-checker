@@ -1,7 +1,12 @@
 <?php
 ob_start();
 include "models/m_stopword.php";
-$stopword = new stopword($connection);
+$fungsi_stopword = new stopword($connection);
+if(@$_POST['tambah']){
+	$stopword = $_POST['stopword'];
+	$fungsi_stopword->tambah($stopword);
+	header("location: ?page=stopword");
+}
 if(@$_GET['act'] == ''){
 ?>
 
@@ -9,7 +14,7 @@ if(@$_GET['act'] == ''){
 <div class="jumbotron">
     <div class="row">
         <div class="col-lg-12">
-            <h1><i class="fa fa-stop"></i><em> Stopword</em></h1>
+            <h1><i class="fa fa-language"></i><em> Stopword</em></h1>
             <ol class="breadcrumb">
                 <li> Berikut Data <em>Stopword</em> </li>
             </ol>
@@ -30,7 +35,7 @@ if(@$_GET['act'] == ''){
 				<tbody class="read-more-less" data-id="200">
 					<?php 
 						$no= 1;
-						$tampil_stopword= $stopword->select_stopword();
+						$tampil_stopword= $fungsi_stopword->select_stopword();
 						while($data = $tampil_stopword->fetch_object()){
 					?>
 						<tr>
@@ -74,16 +79,6 @@ if(@$_GET['act'] == ''){
 							<input type="submit" class="btn btn-info" name="tambah" value="Simpan">
 						</div>
 					</form>
-					<?php
-					if(@$_POST['tambah']){
-						$stopword = $_POST['stopword'];
-						$simpan = mysqli_query($stopword);
-						if($simpan){
-							$stopword->tambah($stopword);
-							header("location: ?page=stopword");
-						}
-					}
-					?>
 				</div>
 			</div>
 		</div>
@@ -95,7 +90,7 @@ if(@$_GET['act'] == ''){
 ?>
 <?php
 } else if(@$_GET['act'] == 'del'){
-	$stopword->hapus($_GET['id_stopword']);
+	$fungsi_stopword->hapus($_GET['id_stopword']);
 	header("location: ?page=stopword");
 }
 ?>
