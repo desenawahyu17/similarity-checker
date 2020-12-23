@@ -35,7 +35,7 @@ if(@$_GET['act'] == ''){
                         <div class="modal-body">
                             File(.pdf)*
                             <div class="custom-file">
-                                <input name="prosesupload" type="file" class="custom-file-input" id="customFile">
+                                <input name="prosesupload" type="file" class="custom-file-input" id="customFile" multiple>
                                 <label class="custom-file-label" for="customFile">Choose file</label>
                                 <small class="text-warning">*| Ukuran File Maksimal adalah 1MB</small>
                             </div>

@@ -11,6 +11,11 @@
   //menghitung jumlah data stopword
   $Tampil_stopword= mysqli_query($koneksi,"SELECT COUNT(id_stopword) as jumlah_stopword from stopword;");
   $data_stopword = mysqli_fetch_array($Tampil_stopword);
+  //menghitung jumlah data similarity
+  $Tampil_similarity= mysqli_query($koneksi,"SELECT COUNT(id) as jumlah_similarity from plagiarisme;");
+  $data_similarity = mysqli_fetch_array($Tampil_similarity);
+  $Tampil_avg= mysqli_query($koneksi,"SELECT COUNT(id) as jumlah_avg from plagiarisme;");
+  $data_avg = mysqli_fetch_array($Tampil_avg);
 ?> 
 <!-- Content -->
 <main class="main">
@@ -67,7 +72,16 @@
 				<div class="card-header bg-info text-light"><h2><em>Similarity</em></h2></div>
 				<div class="card-body" align="center">
 					<i class="fa fa-book fa-3x mb-3"></i>
-					<h2><?php echo $data_stopword['jumlah_stopword']; ?><em> Scanned Documents</em></h2>
+					<h2><?php echo $data_similarity['jumlah_similarity']; ?><em> Scanned Documents</em></h2>
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-4">
+			<div class="card text-center">		  
+				<div class="card-header bg-info text-light"><h2><em>Avg. Similarity</em></h2></div>
+				<div class="card-body" align="center">
+					<i class="fa fa-area-chart fa-3x mb-3"></i>
+					<h2><?php echo $data_avg['jumlah_avg']; ?> %</h2>
 				</div>
 			</div>
 		</div>

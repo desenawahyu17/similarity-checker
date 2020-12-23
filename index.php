@@ -31,7 +31,8 @@
     <li><a href="?page=slangword"><i class="fa fa-link"></i><span><em>Slangword</em></span></a></li>
     <li><a href="?page=stopword"><i class="fa fa-language"></i><span><em>Stopword</em></span></a></li>
     <li><a href="?page=preprocessing"><i class="fa fa-file-pdf-o"></i><span><em>Preprocessing</em></span></a></li>
-    <li><a href="?page=similarity"><i class="fa fa-book"></i><span><em>Similarity</em></span></a></li>
+    <li><a href="?page=plagiarisme"><i class="fa fa-book"></i><span><em>Similarity</em></span></a></li>
+    <li><a href="?page=grafik"><i class="fa fa-area-chart"></i><span><em>Grafik</em></span></a></li>
 </div> 
 <div id="page-wrapper">
 <?php
@@ -45,10 +46,12 @@
     include "views/stopword.php";
   } else if(@$_GET['page'] == 'preprocessing') {
     include "views/preprocessing.php";
-  } else if(@$_GET['page'] == 'similarity') {
-    include "views/similarity.php";
+  } else if(@$_GET['page'] == 'plagiarisme') {
+    include "views/plagiarisme.php";
   } else if(@$_GET['page'] == 'getpreprocessing') {
     include "views/getpreprocessing.php";
+  } else if(@$_GET['page'] == 'grafik') {
+    include "views/grafik.php";
   }
 ?>
 </div>

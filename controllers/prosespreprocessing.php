@@ -46,6 +46,7 @@ if (isset($_POST['savepreprocessing'])) {
     $array_nim =array();
     $array_uploaddate =array();
     $array_filesize =array();
+    $array_content =array();
     $array_casefolding =array();
     $array_karakter =array();
     $array_slangword =array();
@@ -57,6 +58,7 @@ if (isset($_POST['savepreprocessing'])) {
         array_push($array_nim,$data_dokumen->nim);
         array_push($array_uploaddate,$data_dokumen->uploaddate);
         array_push($array_filesize,$data_dokumen->file_size);
+        array_push($array_content,$data_dokumen->content);
 
         $string ="";
         // CASEFOLDING
@@ -130,6 +132,7 @@ if (isset($_POST['savepreprocessing'])) {
     $_SESSION["array_nim"] =$array_nim;
     $_SESSION["array_uploaddate"] =$array_uploaddate;
     $_SESSION["array_filesize"] =$array_filesize;
+    $_SESSION["array_content"] =$array_content;
     $_SESSION["array_casefolding"] =$array_casefolding;
     $_SESSION["array_karakter"] =$array_karakter;
     $_SESSION["array_slangword"] =$array_slangword;

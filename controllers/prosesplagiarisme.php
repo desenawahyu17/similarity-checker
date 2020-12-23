@@ -18,20 +18,16 @@ if (isset($_POST['savefile'])) {
     include('../librarys/PdfToText-master/PdfToText.phpclass');
     // SET DEFAULT TIMEZONE
     date_default_timezone_set('Asia/Jakarta');
-    // $jumlah = count($_FILES['prosesupload']['name']);
-    // if ($jumlah > 0) {
     try{
-        // for ($i=0; $i < $jumlah; $i++) {
         $allowed_ext	= array('pdf');
-        $file_name		= $_FILES['prosesupload']['name'];
+        $file_name		= $_FILES['prosesscan']['name'];
         $tmp            = explode('.', $file_name);
         $file_ext       = end($tmp);
-        $file_size		= $_FILES['prosesupload']['size'];
-        $file_tmp		= $_FILES['prosesupload']['tmp_name'];
+        $file_size		= $_FILES['prosesscan']['size'];
+        $file_tmp		= $_FILES['prosesscan']['tmp_name'];
         if(in_array($file_ext, $allowed_ext) === true){
             if($file_size != 0 && $file_size < 1048576){
                 try {
-                    $location = '../files/'.$file_name;
                     $tanggal = date('Y-m-d H:i:s');
                     // LOAD CLASS PdfToText dari Package
                     $pdf = new PdfToText();
@@ -50,10 +46,9 @@ if (isset($_POST['savefile'])) {
                         $text = $array[1];
                     }
 
-                    $query = "INSERT INTO document(nim,uploaddate,file_size,location,content) VALUES('$file_name', '$tanggal','$file_size', '$location', '$text')";
+                    $query = "INSERT INTO plagiarisme(title,scandate,file_size,similarity,content) VALUES('$file_name', '$tanggal','$file_size', '$similarity', '$text')";
                     $simpan = mysqli_query($koneksi,$query);
                     if($simpan){
-                        move_uploaded_file($file_tmp, $location);
                         echo '
                             <script>
                                 swal ( "Good Job!" , "Uploaded Successfully" ,  "success" , {
@@ -62,7 +57,7 @@ if (isset($_POST['savefile'])) {
                                     timer: 2000,
                                 })
                                 .then(function() {
-                                    window.location = "http://localhost/Tugas%20Kuliah/Semester%207%20(Skripsweet)/Similarity_Checker/?page=uploaddokumen";
+                                    window.location = "http://localhost/Tugas%20Kuliah/Semester%207%20(Skripsweet)/Similarity_Checker/?page=plagiarisme";
                                 });
                             </script>
                         ';
@@ -75,7 +70,7 @@ if (isset($_POST['savefile'])) {
                                 timer: 2000,
                                 })
                                 .then(function() {
-                                    window.location = "http://localhost/Tugas%20Kuliah/Semester%207%20(Skripsweet)/Similarity_Checker/?page=uploaddokumen";
+                                    window.location = "http://localhost/Tugas%20Kuliah/Semester%207%20(Skripsweet)/Similarity_Checker/?page=plagiarisme";
                                 });
                             </script>
                         ';
@@ -94,7 +89,7 @@ if (isset($_POST['savefile'])) {
                         timer: 2000,
                         })
                         .then(function() {
-                            window.location = "http://localhost/Tugas%20Kuliah/Semester%207%20(Skripsweet)/Similarity_Checker/?page=uploaddokumen";
+                            window.location = "http://localhost/Tugas%20Kuliah/Semester%207%20(Skripsweet)/Similarity_Checker/?page=plagiarisme";
                         });
                     </script>
                 ';  
@@ -108,17 +103,15 @@ if (isset($_POST['savefile'])) {
                 timer: 2000,
                 })
                 .then(function() {
-                    window.location = "http://localhost/Tugas%20Kuliah/Semester%207%20(Skripsweet)/Similarity_Checker/?page=uploaddokumen";
+                    window.location = "http://localhost/Tugas%20Kuliah/Semester%207%20(Skripsweet)/Similarity_Checker/?page=plagiarisme";
                 });
             </script>
         ';
         }
-    // }
     }
     catch(exception $e){ 
         echo $e;
     }
-    // }
 }
 ?>
 </body>
