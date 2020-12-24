@@ -31,7 +31,7 @@ if(@$_GET['act'] == ''){
                         <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <form enctype="multipart/form-data" action="controllers/prosesplagiarisme.php" method="POST">
+                    <form enctype="multipart/form-data" action="controllers/prosesscan.php" method="POST">
                         <div class="modal-body">
                             File(.pdf)*
                             <div class="custom-file">

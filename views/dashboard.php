@@ -14,7 +14,7 @@
   //menghitung jumlah data similarity
   $Tampil_similarity= mysqli_query($koneksi,"SELECT COUNT(id) as jumlah_similarity from plagiarisme;");
   $data_similarity = mysqli_fetch_array($Tampil_similarity);
-  $Tampil_avg= mysqli_query($koneksi,"SELECT COUNT(id) as jumlah_avg from plagiarisme;");
+  $Tampil_avg= mysqli_query($koneksi,"SELECT ROUND(sum(similarity)/count(id)) as jumlah_avg from plagiarisme;");
   $data_avg = mysqli_fetch_array($Tampil_avg);
 ?> 
 <!-- Content -->
