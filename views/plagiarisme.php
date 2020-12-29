@@ -66,10 +66,11 @@ if(@$_GET['act'] == ''){
                             $no= 1;
                             $tampil_plagiarisme= $plagiarisme->select_plagiarisme();
                             while($data = $tampil_plagiarisme->fetch_object()){
+                                $nama_file = explode(".", $data->title, 2);
                         ?>
                             <tr>
                                 <td width="5%" align="center"><?php echo $no++.".";?></td>
-                                <td align="center"><?php echo $data->title ?></td>
+                                <td align="center"><?php echo $nama_file[0] ?></td>
                                 <td align="center"><?php echo $data->scandate ?></td>
                                 <td align="center"><?php echo $data->file_size ?> byte</td>
                                 <td align="center"><?php echo $data->similarity ?> %</td>
