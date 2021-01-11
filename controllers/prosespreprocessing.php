@@ -4,7 +4,6 @@ ob_start();
 require_once('../config/koneksi.php');
 require_once('../models/database.php');
 require_once('../models/m_preprocessing.php');
-require_once('../librarys/sastrawi/vendor/autoload.php');
 $connection = new Database($host, $user, $pass, $database);
 $preprocessing = new preprocessing($connection);
 if(@$_GET['act'] == ''){
@@ -23,6 +22,89 @@ if(@$_GET['act'] == ''){
 </head>
 <body>
 <?php
+//Fungsi N-Gram
+function Ngrams($word,$n=3){
+    $len=strlen($word);
+    $ngram=array();
+
+    for($i=0;$i+$n<=$len;$i++){
+        $string="";
+        for($j=0;$j<$n;$j++){ 
+            $string.=$word[$j+$i]; 
+        }
+        $ngram[$i]=$string;
+    }
+        return $ngram;
+}
+
+//Fungsi Rolling Hash
+function r_hash($ngram,$n=3){
+    $b = 7;
+    $k = $n;
+
+    $char = array();
+    // Mengubah ngram menjadi satuan kata (char)
+    for($i=0; $i<count($ngram); $i++) {
+        $char[$i] = str_split($ngram[$i]);
+
+        // Mengubah char menjadi ASCII code
+        for($j=0; $j<count($char[$i]); $j++) {
+            $char[$i][$j] = ord($char[$i][$j]);
+        }
+    }
+
+    $hasil_hash = array();
+    // perulangan sebanyak array dari ngram
+    for($i=0; $i<count($ngram); $i++) {
+        $hasil = 0;
+
+        for($j=0; $j<count($char[$i]); $j++) {
+            // Penjabaran tabel 4.5
+            $hasil =  $hasil + $char[$i][$j] * pow($b, ($k-($j+1)));
+            // $hasil += $char[$i][$j] * pow($b, ($k-($j+1)));
+        }
+        $hasil_hash[$i] = $hasil;
+    }
+
+    return $hasil_hash;
+}
+
+//Fungsi Window
+function wgram($hash,$w){
+    $jumlah_index_window = count($hash) / $w;
+    $index_window = array();
+    $nomor = 0;
+
+    for($i = 0 ; $i < $jumlah_index_window ; $i++) {
+        $window = array();
+        for($j = 1 ; $j <= $w ; $j++) {
+            $window[$j] = $hash[$nomor];
+            $nomor++;
+        }
+        $index_window[$i] = $window;
+    }
+
+    return $index_window;
+}
+
+//Fungsi Fingerprint
+function finger($window, $w){
+    $fingerprint = array();
+    
+    for($i = 0 ; $i < count($window) ; $i++) {
+        
+        $min = $window[$i][1];
+        for($j = 2 ; $j <= $w ; $j++) {
+            if($min > $window[$i][$j]) {
+                $min = $window[$i][$j];
+            }
+        }
+        $fingerprint[$i] = $min;
+    }
+
+    return $fingerprint;
+}
+
 if (isset($_POST['savepreprocessing'])) {
 
     $flag = 0;
@@ -51,7 +133,7 @@ if (isset($_POST['savepreprocessing'])) {
     $array_karakter =array();
     $array_slangword =array();
     $array_stopword =array();
-    $array_stemming =array();
+    $array_spasi =array();
 
     while($data_dokumen = $ambil_dokumen->fetch_object()) {
         array_push($array_dataawal,$data_dokumen->content);
@@ -59,7 +141,7 @@ if (isset($_POST['savepreprocessing'])) {
         array_push($array_uploaddate,$data_dokumen->uploaddate);
         array_push($array_filesize,$data_dokumen->file_size);
         array_push($array_content,$data_dokumen->content);
-
+ 
         $string ="";
         // CASEFOLDING
         $string_kecil = strtolower($data_dokumen -> content);
@@ -87,12 +169,37 @@ if (isset($_POST['savepreprocessing'])) {
         }
         $string = implode(" ", $string_noStopword);
         array_push($array_stopword,$string);
-        
-        // STEMMING
-        $stemmerFactory = new \Sastrawi\Stemmer\StemmerFactory();
-        $stemmer  = $stemmerFactory->createStemmer();
-        $string = $stemmer->stem($string);
-        array_push($array_stemming,$string);
+
+        //Menghilangkan Spasi
+        $string = str_replace(" ","",$string);
+        array_push($array_spasi,$string);
+
+        $n=3;
+        //Proses N-Gram
+        $ngram = Ngrams($string,$n);
+
+        //Proses Rolling hash
+        $hash = r_hash($ngram,$n);
+
+        //Proses Window
+        $w=3;
+        $window = wgram($hash,$w);
+
+        //Proses Fingerprint
+        $fingerprint = finger($window,$w);
+
+        $ngram = implode("|",$ngram);
+
+        $hash = implode("|",$hash);
+
+        $temp = array();
+        for($i = 0 ; $i < count($window); $i++) {
+            $temp[$i] = implode("|",$window[$i]);
+        }
+        $window = implode("|",$temp);
+
+        $fingerprint = implode("|",$fingerprint);
+
 
         try {
             $id= $data_dokumen -> id;
@@ -100,9 +207,8 @@ if (isset($_POST['savepreprocessing'])) {
             $uploaddate= $data_dokumen -> uploaddate;
             $file_size= $data_dokumen -> file_size;
             $content= $string;
-            $preprocessing->simpan_preprocessing($id, $nim, $uploaddate, $file_size, $content);
+            $preprocessing->simpan_preprocessing($id, $nim, $uploaddate, $file_size, $content, $ngram, $hash, $window, $fingerprint);
 
-            
             if($flag == 0) {
                 echo '
                     <script>
@@ -125,7 +231,6 @@ if (isset($_POST['savepreprocessing'])) {
             echo '</pre>';
         }
     }
-
     
     // Set session variables
     $_SESSION["array_dataawal"] =$array_dataawal;
@@ -137,7 +242,7 @@ if (isset($_POST['savepreprocessing'])) {
     $_SESSION["array_karakter"] =$array_karakter;
     $_SESSION["array_slangword"] =$array_slangword;
     $_SESSION["array_stopword"] =$array_stopword;
-    $_SESSION["array_stemming"] =$array_stemming;
+    $_SESSION["array_spasi"] =$array_spasi;
     echo '
     <script>
         window.location = "http://localhost/Tugas%20Kuliah/Semester%207%20(Skripsweet)/Similarity_Checker/?page=getpreprocessing";
@@ -145,9 +250,11 @@ if (isset($_POST['savepreprocessing'])) {
     ';
 
 }
+
 ?>
 </body>
 </html>
+
 <?php
 } 
 ?>

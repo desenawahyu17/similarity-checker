@@ -16,7 +16,7 @@ if(@$_GET['act'] == ''){
 			</div>
 			<!-- Button trigger modal -->
 			<div class="col-12 d-flex justify-content-center w-100">
-				<button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal">
+				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
 				<i class="fa fa-file-pdf-o"></i> Preprocessing
 				</button>
 			</div>
@@ -67,15 +67,46 @@ if(@$_GET['act'] == ''){
                                 <td width="10%" align="center"><?php echo $data->nim ?></td>
                                 <td width="15%" align="center"><?php echo $data->uploaddate ?></td>
                                 <td width="10%" align="center"><?php echo $data->file_size ?> byte</td>
-                                <td width="50%" align="justify" class="read-toggle" data-id="<?php echo $data->nim ?>"><?php echo $data->content ?></td>
-                                <td width="10%" align="center">
+                                <td width="40%" align="justify" class="read-toggle" data-id="<?php echo $data->nim ?>"><p class="spasi-text"><?php echo $data->content ?></p></td>
+                                <td width="20%" align="justify">
                                    <!-- Button trigger modal -->
-								   <a href="?page=preprocessing&act=del&id=<?=$data->id; ?>" onclick="return confirm('Yakin akan menghapus data ini?')">
-										<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#hapus_preprocessing">
-											<i class="fa fa-trash-o"></i> Delete
-										</button>
-									</a>
+								    <div class="text-center"> 
+										<a href="?page=preprocessing&act=del&id=<?=$data->id; ?>" onclick="return confirm('Yakin akan menghapus data ini?')">
+											<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#hapus_preprocessing">
+												<i class="fa fa-trash-o"></i> Delete
+											</button>
+										</a>
+										<button type="button" class="btn btn-info" data-toggle="modal" data-target=".bd-example-modal-lg<?php echo $no ?>"><i class="fa fa-search-plus"></i> Detail</button>
 									</div>
+									<div class="modal fade bd-example-modal-lg<?php echo $no ?>" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-lg">
+                                        <div class="modal-content">
+                                        <div class="modal-header bg-primary">
+                                            <h5 class="modal-title"><strong><em>Detail Content</em></strong></h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                            </button>
+										</div>
+											<ul class="list-group">
+												<li class="list-group-item"><strong>Data Hasil</strong></br>
+													<p class="spasi-text"><?php echo $data->content ?></p>
+												</li>
+												<li class="list-group-item"><strong><em>N-Gram</em></strong></br>
+													<p class="spasi-text"><?php echo $data->ngram ?></p>
+												</li>
+												<li class="list-group-item"><strong><em>Rolling Hash</em></strong></br>
+													<p class="spasi-text"><?php echo $data->hash ?></p>
+												</li>
+												<li class="list-group-item"><strong><em>Window</em></strong></br>
+													<p class="spasi-text"><?php echo $data->window ?></p>
+												</li>
+												<li class="list-group-item"><strong><em>Fingerprint</em></strong></br>
+													<p class="spasi-text"><?php echo $data->fingerprint ?></p>
+												</li>
+											</ul>
+                                        </div>
+                                    </div>
+                                    </div>
                                 </td>
 							</tr> 
 						<?php

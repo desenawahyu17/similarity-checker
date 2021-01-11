@@ -35,9 +35,9 @@ class preprocessing{
 		return $query;
 	}
 
-	public function simpan_preprocessing($id, $nim, $uploaddate, $file_size, $content){
+	public function simpan_preprocessing($id, $nim, $uploaddate, $file_size, $content, $ngram, $hash, $window, $fingerprint){
 		$db	= $this->mysqli->conn;
-		$db->query("INSERT IGNORE preprocessing (id, nim, uploaddate, file_size, content) VALUE ('$id', '$nim', '$uploaddate', '$file_size', '$content')") or die($db->error);
+		$db->query("INSERT IGNORE preprocessing (id, nim, uploaddate, file_size, content, ngram, hash, window, fingerprint) VALUE ('$id', '$nim', '$uploaddate', '$file_size', '$content', '$ngram', '$hash', '$window', '$fingerprint')") or die($db->error);
 	}
 
 	public function hapus($id){

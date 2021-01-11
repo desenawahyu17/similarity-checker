@@ -62,7 +62,7 @@ if(@$_SESSION){
                                                 <li class="list-group-item"><strong><em>Case Folding</em></strong></br>
                                                     <?php echo $_SESSION["array_casefolding"][$i];?>
                                                 </li>
-                                                <li class="list-group-item"><strong>Menghilangkan Karakter</strong></br>
+                                                <li class="list-group-item"><strong>Menghilangkan Karakter Selain a-z</strong></br>
                                                     <?php echo $_SESSION["array_karakter"][$i];?>
                                                 </li>
                                                 <li class="list-group-item"><strong><em>Slang Word</em></strong></br>
@@ -71,9 +71,12 @@ if(@$_SESSION){
                                                 <li class="list-group-item"><strong><em>Stop Word</em></strong></br>
                                                     <?php echo $_SESSION["array_stopword"][$i];?>
                                                 </li>
-                                                <li class="list-group-item"><strong><em>Stemming</em></strong></br>
-                                                    <?php echo $_SESSION["array_stemming"][$i];?>
+                                                <li class="list-group-item"><strong>Menghapus Spasi</strong></br>
+                                                    <p class="spasi-text"><?php echo $_SESSION["array_spasi"][$i];?></p>
                                                 </li>
+                                                <!-- <li class="list-group-item"><strong><em>Stemming</em></strong></br>
+                                                    <?php echo $_SESSION["array_stemming"][$i];?>
+                                                </li> -->
                                             </ul>
                                         </div>
                                     </div>

@@ -1,0 +1,1 @@
+Implementasi Metode N-Gram dan Jaccard Similarity Terhadap Algoritme Winnowing untuk Mendeteksi Plagiarisme Berbasis Web Pada Perpustkaan Universitas Budi Luhur

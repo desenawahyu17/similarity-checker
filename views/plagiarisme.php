@@ -74,7 +74,7 @@ if(@$_GET['act'] == ''){
                                 <td align="center"><?php echo $data->scandate ?></td>
                                 <td align="center"><?php echo $data->file_size ?> byte</td>
                                 <td align="center"><?php echo $data->similarity ?> %</td>
-                                <td align="center">
+                                <td align="justify">
                                     <!-- Large modal -->
                                     <div class="text-center"> 
                                         <a href="?page=plagiarisme&act=del&id=<?=$data->id; ?>" onclick="return confirm('Yakin akan menghapus data ini?')">
@@ -93,7 +93,26 @@ if(@$_GET['act'] == ''){
                                             <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
-                                        <h6 class="text-justify"><?php echo $data->content ?></h6>
+                                            <ul class="list-group">
+                                                <li class="list-group-item"><strong>Data Awal</strong></br>
+													<?php echo $data->content ?>
+												</li>
+												<li class="list-group-item"><strong>Data Hasil</strong></br>
+													<p class="spasi-text"><?php echo $data->content_clean ?></p>
+												</li>
+												<li class="list-group-item"><strong><em>N-Gram</em></strong></br>
+													<?php echo $data->ngram ?>
+												</li>
+												<li class="list-group-item"><strong><em>Rolling Hash</em></strong></br>
+													<?php echo $data->hash ?>
+												</li>
+												<li class="list-group-item"><strong><em>Window</em></strong></br>
+													<?php echo $data->window ?>
+												</li>
+												<li class="list-group-item"><strong><em>Fingerprint</em></strong></br>
+													<?php echo $data->fingerprint ?>
+												</li>
+											</ul>                                       
                                         </div>
                                     </div>
                                     </div>

@@ -27,12 +27,12 @@
 <div class="sidebar">
   <ul>
     <li><a href="?page=dashboard"><i class="fa fa-tachometer"></i><span>Beranda</span></a></li>
-    <li><a href="?page=uploaddokumen"><i class="fa fa-upload"></i><span><em>Upload Document</em></span></a></li>
+    <li><a href="?page=uploaddokumen"><i class="fa fa-upload"></i><span><em>Document Data</em></span></a></li>
+    <li><a href="?page=preprocessing"><i class="fa fa-file-pdf-o"></i><span><em>Document Dataset</em></span></a></li>
     <li><a href="?page=slangword"><i class="fa fa-link"></i><span><em>Slangword</em></span></a></li>
     <li><a href="?page=stopword"><i class="fa fa-language"></i><span><em>Stopword</em></span></a></li>
-    <li><a href="?page=preprocessing"><i class="fa fa-file-pdf-o"></i><span><em>Preprocessing</em></span></a></li>
-    <li><a href="?page=plagiarisme"><i class="fa fa-book"></i><span><em>Similarity</em></span></a></li>
-    <li><a href="?page=grafik"><i class="fa fa-area-chart"></i><span><em>Grafik</em></span></a></li>
+    <li><a href="?page=plagiarisme"><i class="fa fa-book"></i><span><em>Similarity Check</em></span></a></li>
+    <li><a href="?page=grafik"><i class="fa fa-area-chart"></i><span><em>Chart</em></span></a></li>
 </div> 
 <div id="page-wrapper">
 <?php
