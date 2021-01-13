@@ -26,7 +26,7 @@
 </div>
 <div class="sidebar">
   <ul>
-    <li><a href="?page=dashboard"><i class="fa fa-tachometer"></i><span>Beranda</span></a></li>
+    <li><a href="?page=dashboard"><i class="fa fa-home"></i><span><em>Home</em></span></a></li>
     <li><a href="?page=uploaddokumen"><i class="fa fa-upload"></i><span><em>Document Data</em></span></a></li>
     <li><a href="?page=preprocessing"><i class="fa fa-file-pdf-o"></i><span><em>Document Dataset</em></span></a></li>
     <li><a href="?page=slangword"><i class="fa fa-link"></i><span><em>Slangword</em></span></a></li>
@@ -50,6 +50,8 @@
     include "views/plagiarisme.php";
   } else if(@$_GET['page'] == 'getpreprocessing') {
     include "views/getpreprocessing.php";
+  } else if(@$_GET['page'] == 'detailplagiarisme') {
+    include "views/detailplagiarisme.php";
   } else if(@$_GET['page'] == 'grafik') {
     include "views/grafik.php";
   }

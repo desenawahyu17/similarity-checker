@@ -11,7 +11,7 @@
 </head>
 <body>
 <?php
-    
+session_start();   
 // var_dump($_POST); die();
 if (isset($_POST['savefile'])) {
     include('../librarys/PdfToText-master/PdfToText.phpclass');
@@ -19,7 +19,7 @@ if (isset($_POST['savefile'])) {
     // SET DEFAULT TIMEZONE
     date_default_timezone_set('Asia/Jakarta');
     try{
-        $similarity = 70;
+        $similarity = 0;
         $allowed_ext	= array('pdf');
         $file_name		= $_FILES['prosesscan']['name'];
         $tmp            = explode('.', $file_name);
@@ -55,7 +55,9 @@ if (isset($_POST['savefile'])) {
                    }
 
                     $hasil_preprocessing = fungsi_preprocessing($text);
-                    $query = "INSERT INTO plagiarisme(title,scandate,file_size,similarity,content,content_clean,ngram,hash,window,fingerprint) VALUES('$file_name', '$tanggal','$file_size', '$similarity', '$text', '$hasil_preprocessing')";
+                    // Set session variables
+                    $_SESSION["hasil_fingerprint"] =$hasil_preprocessing['hasil_fingerprint'];
+                    $query = "INSERT INTO plagiarisme(title,scandate,file_size,similarity,content,content_clean,ngram,hash,window,fingerprint) VALUES('$file_name', '$tanggal','$file_size', '$similarity', '$text', '$hasil_preprocessing[teks_bersih]', '$hasil_preprocessing[hasil_ngram]', '$hasil_preprocessing[hasil_hash]', '$hasil_preprocessing[hasil_window]', '$hasil_preprocessing[hasil_fingerprint]')";
                     $simpan = mysqli_query($koneksi,$query); 
                     if($simpan){
                         echo '
@@ -66,7 +68,7 @@ if (isset($_POST['savefile'])) {
                                     timer: 2000,
                                 })
                                 .then(function() {
-                                    window.location = "http://localhost/Tugas%20Kuliah/Semester%207%20(Skripsweet)/Similarity_Checker/?page=plagiarisme";
+                                    window.location = "http://localhost/Tugas%20Kuliah/Semester%207%20(Skripsweet)/Similarity_Checker/?page=detailplagiarisme";
                                 });
                             </script>
                         ';
@@ -172,7 +174,7 @@ function r_hash($ngram,$n=3){
 
 //Fungsi Window
 function wgram($hash,$w){
-    $jumlah_index_window = count($hash) / $w;
+    $jumlah_index_window = floor(count($hash) / $w);
     $index_window = array();
     $nomor = 0;
 
@@ -250,7 +252,7 @@ function fungsi_preprocessing($text) {
 
     //Menghilangkan Spasi
     $string = str_replace(" ","",$string);
-    return $string;
+    
 
     $n=3;
     //Proses N-Gram
@@ -276,7 +278,17 @@ function fungsi_preprocessing($text) {
     }
     $window = implode("|",$temp);
 
-    $fingerprint = implode("|",$fingerprint);    
+    $fingerprint = implode("|",$fingerprint); 
+
+    $data_hasil = array(
+        'teks_bersih'=>$string,
+        'hasil_ngram'=>$ngram,
+        'hasil_hash' =>$hash,
+        'hasil_window' =>$window,
+        'hasil_fingerprint' =>$fingerprint
+    );
+    
+    return $data_hasil;
 
 }
 ?>

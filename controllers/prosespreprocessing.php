@@ -71,7 +71,7 @@ function r_hash($ngram,$n=3){
 
 //Fungsi Window
 function wgram($hash,$w){
-    $jumlah_index_window = count($hash) / $w;
+    $jumlah_index_window = floor(count($hash) / $w);
     $index_window = array();
     $nomor = 0;
 
@@ -141,7 +141,7 @@ if (isset($_POST['savepreprocessing'])) {
         array_push($array_uploaddate,$data_dokumen->uploaddate);
         array_push($array_filesize,$data_dokumen->file_size);
         array_push($array_content,$data_dokumen->content);
- 
+        
         $string ="";
         // CASEFOLDING
         $string_kecil = strtolower($data_dokumen -> content);
@@ -199,7 +199,6 @@ if (isset($_POST['savepreprocessing'])) {
         $window = implode("|",$temp);
 
         $fingerprint = implode("|",$fingerprint);
-
 
         try {
             $id= $data_dokumen -> id;

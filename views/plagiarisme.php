@@ -58,6 +58,7 @@ if(@$_GET['act'] == ''){
                             <th>Scan Date</th>
                             <th>File Size</th>
                             <th>Similarity</th>
+                            <th>Keterangan</th>
                             <th>Option</th>
                         </tr>
                     </thead>
@@ -67,6 +68,19 @@ if(@$_GET['act'] == ''){
                             $tampil_plagiarisme= $plagiarisme->select_plagiarisme();
                             while($data = $tampil_plagiarisme->fetch_object()){
                                 $nama_file = explode(".", $data->title, 2);
+                                $keterangan_similariry = "-";
+                                if($data->similarity==0){
+                                    $keterangan_similariry = "<div>Tidak Plagiarisme</div>";
+                                }
+                                else if($data->similarity>0 && $data->similarity<15){
+                                    $keterangan_similariry = "Plagiarisme Sedikit";
+                                }
+                                else if($data->similarity>=15 && $data->similarity<50){
+                                    $keterangan_similariry = "Plagiarisme Sedang";
+                                }
+                                else if($data->similarity>=50 && $data->similarity==100){
+                                    $keterangan_similariry = "Plagiarisme Berat";
+                                }
                         ?>
                             <tr>
                                 <td width="5%" align="center"><?php echo $no++.".";?></td>
@@ -74,6 +88,7 @@ if(@$_GET['act'] == ''){
                                 <td align="center"><?php echo $data->scandate ?></td>
                                 <td align="center"><?php echo $data->file_size ?> byte</td>
                                 <td align="center"><?php echo $data->similarity ?> %</td>
+                                <td align="center"><?php echo $keterangan_similariry ?></td>
                                 <td align="justify">
                                     <!-- Large modal -->
                                     <div class="text-center"> 
@@ -83,6 +98,11 @@ if(@$_GET['act'] == ''){
                                             </button>
                                         </a>                                  
                                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg<?php echo $no ?>"><i class="fa fa-search-plus"></i> Detail</button>
+                                        
+                                        <a href="?page=detailplagiarisme">
+                                            <button type="button" class="btn btn-success" data-toggle="modal" data-target=".bd-example-modal-lg"><i class="fa fa-info-circle"></i> Hasil</button>
+                                        </a>
+
                                     </div>    
                                     <div class="modal fade bd-example-modal-lg<?php echo $no ?>" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
                                     <div class="modal-dialog modal-lg">
@@ -101,16 +121,16 @@ if(@$_GET['act'] == ''){
 													<p class="spasi-text"><?php echo $data->content_clean ?></p>
 												</li>
 												<li class="list-group-item"><strong><em>N-Gram</em></strong></br>
-													<?php echo $data->ngram ?>
+                                                    <p class="spasi-text"><?php echo $data->ngram ?></p>
 												</li>
 												<li class="list-group-item"><strong><em>Rolling Hash</em></strong></br>
-													<?php echo $data->hash ?>
+                                                    <p class="spasi-text"><?php echo $data->hash ?></p>
 												</li>
 												<li class="list-group-item"><strong><em>Window</em></strong></br>
-													<?php echo $data->window ?>
+                                                    <p class="spasi-text"><?php echo $data->window ?></p>
 												</li>
 												<li class="list-group-item"><strong><em>Fingerprint</em></strong></br>
-													<?php echo $data->fingerprint ?>
+                                                    <p class="spasi-text"><?php echo $data->fingerprint ?></p>
 												</li>
 											</ul>                                       
                                         </div>

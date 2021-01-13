@@ -63,7 +63,7 @@ if(@$_GET['act'] == ''){
 						?>
 					</tbody>
 				</table>	
-		</div>
+			</div>
 		<div id="tambah" class="modal fade" role="dialog">
 			<div class="modal-dialog">
 				<div class="modal-content">
@@ -87,7 +87,6 @@ if(@$_GET['act'] == ''){
 							<input type="submit" class="btn btn-info" name="tambah" value="Simpan">
 						</div>
 					</form>
-					
 				</div>
 			</div>
 		</div>
