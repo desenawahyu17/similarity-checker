@@ -32,7 +32,6 @@
     <li><a href="?page=slangword"><i class="fa fa-link"></i><span><em>Slangword</em></span></a></li>
     <li><a href="?page=stopword"><i class="fa fa-language"></i><span><em>Stopword</em></span></a></li>
     <li><a href="?page=plagiarisme"><i class="fa fa-book"></i><span><em>Similarity Check</em></span></a></li>
-    <li><a href="?page=grafik"><i class="fa fa-area-chart"></i><span><em>Chart</em></span></a></li>
 </div> 
 <div id="page-wrapper">
 <?php
@@ -52,8 +51,6 @@
     include "views/getpreprocessing.php";
   } else if(@$_GET['page'] == 'detailplagiarisme') {
     include "views/detailplagiarisme.php";
-  } else if(@$_GET['page'] == 'grafik') {
-    include "views/grafik.php";
   }
 ?>
 </div>

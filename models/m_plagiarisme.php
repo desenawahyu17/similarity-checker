@@ -7,31 +7,31 @@ class plagiarisme{
 		$this->mysqli = $conn;
 	}
 
-	public function select_plagiarisme($id = null){
-		$db	= $this->mysqli->conn;
-		$sql = "SELECT * FROM plagiarisme";
-		$query = $db->query($sql) or die ($db->error);
-		return $query;
-	}
+	// public function select_plagiarisme($id = null){
+	// 	$db	= $this->mysqli->conn;
+	// 	$sql = "SELECT * FROM plagiarisme";
+	// 	$query = $db->query($sql) or die ($db->error);
+	// 	return $query;
+	// }
 
 	public function select_preprocessing($id = null){
 		$db	= $this->mysqli->conn;
-		$sql = "SELECT fingerprint FROM preprocessing";
+		$sql = "SELECT * FROM preprocessing";
 		$query = $db->query($sql) or die ($db->error);
 		return $query;
 	}
 
-	public function select_finger($id){
-		$db	= $this->mysqli->conn;
-		$sql = "SELECT fingerprint FROM plagiarisme WHERE id = '$id'";
-		$query = $db->query($sql) or die ($db->error);
-		return $query;
-	}
+	// public function select_finger($id){
+	// 	$db	= $this->mysqli->conn;
+	// 	$sql = "SELECT fingerprint FROM plagiarisme WHERE id = '$id'";
+	// 	$query = $db->query($sql) or die ($db->error);
+	// 	return $query;
+	// }
 
-	public function delete_plagiarisme($id){
-		$db = $this->mysqli->conn;
-		$db->query("DELETE FROM plagiarisme WHERE id = '$id'") or die($db->error);
-	}
+	// public function delete_plagiarisme($id){
+	// 	$db = $this->mysqli->conn;
+	// 	$db->query("DELETE FROM plagiarisme WHERE id = '$id'") or die($db->error);
+	// }
 
 	public function select_slangword($id = null){
 		$db	= $this->mysqli->conn;

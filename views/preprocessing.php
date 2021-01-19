@@ -67,8 +67,8 @@ if(@$_GET['act'] == ''){
                                 <td width="10%" align="center"><?php echo $data->nim ?></td>
                                 <td width="15%" align="center"><?php echo $data->uploaddate ?></td>
                                 <td width="10%" align="center"><?php echo $data->file_size ?> byte</td>
-                                <td width="40%" align="justify" class="read-toggle" data-id="<?php echo $data->nim ?>"><p class="spasi-text"><?php echo $data->content ?></p></td>
-                                <td width="20%" align="justify">
+                                <td width="50%" align="justify" class="read-toggle" data-id="<?php echo $data->nim ?>"><p class="spasi-text"><?php echo $data->content ?></p></td>
+                                <td width="10%" align="justify">
                                    <!-- Button trigger modal -->
 								    <div class="text-center"> 
 										<a href="?page=preprocessing&act=del&id=<?=$data->id; ?>" onclick="return confirm('Yakin akan menghapus data ini?')">
@@ -76,7 +76,7 @@ if(@$_GET['act'] == ''){
 												<i class="fa fa-trash-o"></i> Delete
 											</button>
 										</a>
-										<button type="button" class="btn btn-info" data-toggle="modal" data-target=".bd-example-modal-lg<?php echo $no ?>"><i class="fa fa-search-plus"></i> Detail</button>
+										<!-- <button type="button" class="btn btn-info" data-toggle="modal" data-target=".bd-example-modal-lg<?php echo $no ?>"><i class="fa fa-search-plus"></i> Detail</button> -->
 									</div>
 									<div class="modal fade bd-example-modal-lg<?php echo $no ?>" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
                                     <div class="modal-dialog modal-lg">

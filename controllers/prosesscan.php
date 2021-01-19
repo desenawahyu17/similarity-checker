@@ -57,12 +57,12 @@ if (isset($_POST['savefile'])) {
                     $hasil_preprocessing = fungsi_preprocessing($text);
                     // Set session variables
                     $_SESSION["hasil_fingerprint"] =$hasil_preprocessing['hasil_fingerprint'];
-                    $query = "INSERT INTO plagiarisme(title,scandate,file_size,similarity,content,content_clean,ngram,hash,window,fingerprint) VALUES('$file_name', '$tanggal','$file_size', '$similarity', '$text', '$hasil_preprocessing[teks_bersih]', '$hasil_preprocessing[hasil_ngram]', '$hasil_preprocessing[hasil_hash]', '$hasil_preprocessing[hasil_window]', '$hasil_preprocessing[hasil_fingerprint]')";
-                    $simpan = mysqli_query($koneksi,$query); 
-                    if($simpan){
+                    // $query = "INSERT INTO plagiarisme(title,scandate,file_size,similarity,content,content_clean,ngram,hash,window,fingerprint) VALUES('$file_name', '$tanggal','$file_size', '$similarity', '$text', '$hasil_preprocessing[teks_bersih]', '$hasil_preprocessing[hasil_ngram]', '$hasil_preprocessing[hasil_hash]', '$hasil_preprocessing[hasil_window]', '$hasil_preprocessing[hasil_fingerprint]')";
+                    // $simpan = mysqli_query($koneksi,$query); 
+                    // if($simpan){
                         echo '
                             <script>
-                                swal ( "Good Job!" , "Uploaded Successfully" ,  "success" , {
+                                swal ( "Good Job!" , "Successfully" ,  "success" , {
                                     buttons: false,
                                     closeOnClickOutside: false,
                                     timer: 2000,
@@ -72,20 +72,20 @@ if (isset($_POST['savefile'])) {
                                 });
                             </script>
                         ';
-                    }else{
-                        echo '
-                            <script>
-                                swal ( "Try Again!" , "Upload Failed" ,  "error" , {
-                                buttons: false,
-                                closeOnClickOutside: false,
-                                timer: 2000,
-                                })
-                                .then(function() {
-                                    window.location = "http://localhost/Tugas%20Kuliah/Semester%207%20(Skripsweet)/Similarity_Checker/?page=plagiarisme";
-                                });
-                            </script>
-                        ';
-                    }
+                    // }else{
+                    //     echo '
+                    //         <script>
+                    //             swal ( "Try Again!" , "Upload Failed" ,  "error" , {
+                    //             buttons: false,
+                    //             closeOnClickOutside: false,
+                    //             timer: 2000,
+                    //             })
+                    //             .then(function() {
+                    //                 window.location = "http://localhost/Tugas%20Kuliah/Semester%207%20(Skripsweet)/Similarity_Checker/?page=plagiarisme";
+                    //             });
+                    //         </script>
+                    //     ';
+                    // }
                 }
                 catch(exception $e) {
 
