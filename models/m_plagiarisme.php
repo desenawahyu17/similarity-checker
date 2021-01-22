@@ -7,9 +7,9 @@ class plagiarisme{
 		$this->mysqli = $conn;
 	}
 
-	// public function select_plagiarisme($id = null){
+	// public function select_dataset($id = null){
 	// 	$db	= $this->mysqli->conn;
-	// 	$sql = "SELECT * FROM plagiarisme";
+	// 	$sql = "SELECT content FROM preprocessing";
 	// 	$query = $db->query($sql) or die ($db->error);
 	// 	return $query;
 	// }

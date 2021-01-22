@@ -1,0 +1,16 @@
+1. Start
+2. Baca array fingerprint dokumen1[]
+3. Baca array fingerprint dokumen2[]
+4. Buat variabel intersect
+5. if(dokumen1 != null)
+6. 	if(Bandingkan dokumen1 dan dokumen2)
+7. 		intersect++
+8. 		Endif
+9. 	Kembali ke nomor 5
+10. 	Endif
+11. Jumlahkan nilai hash dokumen1 dan simpan di variabel a[]
+12. Jumlahkan nilai hash dokumen2 dan simpan di variabel b[]
+13. hitung union dokumen1 dan dokumen2 dikurang intersect
+14. Proses hasil : intersect/union *100%
+15. return round
+16. End

@@ -1,0 +1,25 @@
+1.  Start
+2.  Baca array kgram 
+3.  Baca array isi_text[]
+4.  deklarasi variabel
+5.  if(i=0, i<=isi_text,kgram, i++)
+6.  	Pecah string teks
+7.  	Endif
+8.  Jalankan rolling hash
+9.  if(j=0,j<=kgram,j++)
+10. 	Ubah isi_text() menjadi ASCII
+11. 	Tampung dalam array ascii[]
+12. 	Proses perhitungan hash dan simpan kedalam array hash_value[]
+13. 	Simpan kedalam array hash[j]
+14. 	Endif
+15. Tampung perhitungan hash kedalam array hash_value[]
+16. if(k=1,k<karakter(),k++)
+17. 	ambil huruf awal teks pada karakter[i]
+18. 	ubah huruf menjadi ascii dan tampung kedalam array ascii[]
+19. 	ambil huruf akhir dari teks pada karakter[k]
+20. 	proses perhitungan hash, lalu tampung kedalam array hash_value[]
+21. 	simpan hasil perhitungan hash kedalam array var_hash[]
+22. 	simpan kedalam hash[k]
+23. 	Endif
+24. return hash
+25. End

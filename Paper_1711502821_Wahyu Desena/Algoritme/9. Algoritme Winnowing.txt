@@ -1,0 +1,8 @@
+1. Start
+2. Ambil dokumen hasil preprocessing
+3. Simpan dalam array isi_text[]
+4. Baca array k-gram
+5. Lakukan proses perhitungan rolling hash
+6. Simpan dalam array hash
+7. Lakukan proses fingerprint
+8. End

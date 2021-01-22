@@ -1,0 +1,10 @@
+1.  Start
+2.  Baca array isi_text[]
+3.  i=0
+4.  if(isi_text[i] ada)
+5.  	Proses Hapus spasi antar kata
+6.  	Output isi_text[i]
+7.  	i++
+8.  Kembali ke no 4
+9.  End if
+10. End

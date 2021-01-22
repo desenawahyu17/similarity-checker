@@ -76,7 +76,6 @@ if(@$_GET['act'] == ''){
 												<i class="fa fa-trash-o"></i> Delete
 											</button>
 										</a>
-										<!-- <button type="button" class="btn btn-info" data-toggle="modal" data-target=".bd-example-modal-lg<?php echo $no ?>"><i class="fa fa-search-plus"></i> Detail</button> -->
 									</div>
 									<div class="modal fade bd-example-modal-lg<?php echo $no ?>" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
                                     <div class="modal-dialog modal-lg">

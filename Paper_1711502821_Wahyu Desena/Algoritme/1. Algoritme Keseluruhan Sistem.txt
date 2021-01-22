@@ -1,0 +1,13 @@
+1 Start
+2 Proses dokumen
+3 Baca dokumen dataset || data tes
+4 Proses preprocessing
+5 Hasil dokumen bersih
+6 Proses n-gram
+7 proses algoritme winnowing
+8 proses jaccard similarity
+9 Output tingkat similarity
+10if (ulangi proses)
+11	kembali ke no 2
+12End if
+13end

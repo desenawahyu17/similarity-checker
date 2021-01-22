@@ -1,0 +1,14 @@
+1.  Start
+2.  Baca array isi_text[]
+3.  Buka & baca array library stopword
+4.  Explode library stopword
+5.  i=0
+6.  if(isi_text[i] ada)
+7.  	if(isi_text[i] terdapat dalam library stopword[])
+8.  	remove (isi_text[i])
+9.  	i++
+10. 	Kembali ke nomor 5
+11. Endif
+12. Kembali ke nomor 9
+13. Endif
+14. End

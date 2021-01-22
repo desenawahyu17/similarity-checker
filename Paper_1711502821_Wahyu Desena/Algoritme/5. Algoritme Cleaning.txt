@@ -1,0 +1,11 @@
+1.  Start
+2.  Baca array isi_text[]
+3.  i=0
+4.  if(isi_text[i] ada)
+5.  	Proses Hapus isi_text[i]
+6.  	Proses Hapus karakter selain a-z
+7.  	Output isi_text[i]
+8.  	i++
+9.  Kembali ke no 4
+10. End if
+11. End

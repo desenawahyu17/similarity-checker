@@ -16,6 +16,10 @@ session_start();
 if (isset($_POST['savefile'])) {
     include('../librarys/PdfToText-master/PdfToText.phpclass');
     include('../config/koneksi.php');
+    include('../models/database.php');
+    include('../models/m_plagiarisme.php');
+    $connection = new Database($host, $user, $pass, $database);
+    $plagiarisme = new plagiarisme($connection);
     // SET DEFAULT TIMEZONE
     date_default_timezone_set('Asia/Jakarta');
     try{
@@ -53,13 +57,84 @@ if (isset($_POST['savefile'])) {
                            $text = $array[1];
                        }
                    }
+                    //Pembuatan session untuk data tes
+                    $_SESSION["file_name"] =$file_name;
+                    $_SESSION["file_size"] =$file_size;
 
-                    $hasil_preprocessing = fungsi_preprocessing($text);
+                    $hasil_preprocessing = fungsi_preprocessing($text,$plagiarisme);
+                    $dataset = $plagiarisme->select_preprocessing();
+                    
+                    $nim_tampil = array();
+                    $filesize_tampil = array();
+                    $dataset_bersih = array();
+                    $content_tampil = array();
+                    
+                    foreach($dataset as $data) {
+                        array_push($nim_tampil, $data['nim']);
+                        array_push($filesize_tampil, $data['file_size']);
+                        array_push($content_tampil, $data['content']);
+                        array_push($dataset_bersih, $data['content']);
+
+                    }
+                    // echo"<pre>";
+                    // var_dump($nim_tampil);
+                    // echo"</pre>";
+                    // die();
+                    // array_push($dataset_bersih, 'implementasipengamananfile');
+                    // array_push($dataset_bersih, 'aplikasipengamananfile');
+                    
+                    //pengenalan array untuk dataset
+                    $ngram = array();
+                    $hash = array();
+                    $window = array();
+                    $fingerprint = array();
+
+                    //pengenalan array untuk tampilan dataset
+                    $ngram_tampil = array();
+                    $hash_tampil = array();
+                    $window_tampil = array();
+                    $fingerprint_tampil = array();
+
+                    $n=3;
+                    $w=4;
+                    //Proses N-Gram, Rolling hash,window,fingerprint
+                    for($i = 0; $i<count($dataset_bersih); $i++){
+                        $ngram[$i] = Ngrams($dataset_bersih[$i],$n);
+                        $ngram_tampil[$i] = implode("|",$ngram[$i]);
+
+                        $hash[$i] = r_hash($ngram[$i],$n);
+                        $hash_tampil[$i] = implode("|",$hash[$i]);
+
+                        $window[$i] = wgram($hash[$i],$w);
+                        $temp = array();
+                            for($j = 0 ; $j < count($window[$i]); $j++) {
+                                $temp[$i][$j] = implode("|",$window[$i][$j]);
+                            }
+                        $window_tampil[$i] = implode("|",$temp[$i]);
+
+                        $fingerprint[$i] = finger($window[$i],$w);
+                        $fingerprint_tampil[$i] = implode("|",$fingerprint[$i]);
+                    }
+
+                    //Pembuatan session dataset
+                    $_SESSION["nim_tampil"] =$nim_tampil;
+                    $_SESSION["filesize_tampil"] =$filesize_tampil;
+                    $_SESSION["content_tampil"] =$content_tampil;
+                    $_SESSION["dataset_bersih"] =$dataset_bersih;
+                    $_SESSION["ngram_tampil"] =$ngram_tampil;
+                    $_SESSION["hash_tampil"] =$hash_tampil;
+                    $_SESSION["window_tampil"] =$window_tampil;
+                    $_SESSION["fingerprint"] =$fingerprint;
+                    $_SESSION["fingerprint_tampil"] =$fingerprint_tampil;
+                    
                     // Set session variables
-                    $_SESSION["hasil_fingerprint"] =$hasil_preprocessing['hasil_fingerprint'];
-                    // $query = "INSERT INTO plagiarisme(title,scandate,file_size,similarity,content,content_clean,ngram,hash,window,fingerprint) VALUES('$file_name', '$tanggal','$file_size', '$similarity', '$text', '$hasil_preprocessing[teks_bersih]', '$hasil_preprocessing[hasil_ngram]', '$hasil_preprocessing[hasil_hash]', '$hasil_preprocessing[hasil_window]', '$hasil_preprocessing[hasil_fingerprint]')";
-                    // $simpan = mysqli_query($koneksi,$query); 
-                    // if($simpan){
+                    $_SESSION["hasil_fingerprint"] = $hasil_preprocessing['hasil_fingerprint'];
+                    $_SESSION["teks_bersih"] = $hasil_preprocessing['teks_bersih'];
+                    $_SESSION["hasil_ngram"] = $hasil_preprocessing['hasil_ngram'];
+                    $_SESSION["hasil_hash"] = $hasil_preprocessing['hasil_hash'];
+                    $_SESSION["hasil_window"] = $hasil_preprocessing['hasil_window'];
+                   
+                    if(true){
                         echo '
                             <script>
                                 swal ( "Good Job!" , "Successfully" ,  "success" , {
@@ -72,20 +147,20 @@ if (isset($_POST['savefile'])) {
                                 });
                             </script>
                         ';
-                    // }else{
-                    //     echo '
-                    //         <script>
-                    //             swal ( "Try Again!" , "Upload Failed" ,  "error" , {
-                    //             buttons: false,
-                    //             closeOnClickOutside: false,
-                    //             timer: 2000,
-                    //             })
-                    //             .then(function() {
-                    //                 window.location = "http://localhost/Tugas%20Kuliah/Semester%207%20(Skripsweet)/Similarity_Checker/?page=plagiarisme";
-                    //             });
-                    //         </script>
-                    //     ';
-                    // }
+                    }else{
+                        echo '
+                            <script>
+                                swal ( "Try Again!" , "Upload Failed" ,  "error" , {
+                                buttons: false,
+                                closeOnClickOutside: false,
+                                timer: 2000,
+                                })
+                                .then(function() {
+                                    window.location = "http://localhost/Tugas%20Kuliah/Semester%207%20(Skripsweet)/Similarity_Checker/?page=plagiarisme";
+                                });
+                            </script>
+                        ';
+                    }
                 }
                 catch(exception $e) {
 
@@ -209,12 +284,9 @@ function finger($window, $w){
 }
 
 // Fungsi Untuk Preprocessing
-function fungsi_preprocessing($text) {
-    include('../config/koneksi.php');
-    include('../models/database.php');
-    include('../models/m_plagiarisme.php');
-    $connection = new Database($host, $user, $pass, $database);
-    $plagiarisme = new plagiarisme($connection);
+function fungsi_preprocessing($text,$plagiarisme) {
+
+    
     // AMMBIL DATA TABEL SLANGWORD
     $ambil_slangword= $plagiarisme->select_slangword();
         
@@ -262,7 +334,7 @@ function fungsi_preprocessing($text) {
     $hash = r_hash($ngram,$n);
 
     //Proses Window
-    $w=3;
+    $w=4;
     $window = wgram($hash,$w);
 
     //Proses Fingerprint

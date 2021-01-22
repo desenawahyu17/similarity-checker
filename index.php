@@ -64,6 +64,7 @@
 <script type="text/javascript">
   $(document).ready( function () {
     $('#datatables').DataTable();
+    $('#datatables2').DataTable();
   } );
 </script>
 </body>

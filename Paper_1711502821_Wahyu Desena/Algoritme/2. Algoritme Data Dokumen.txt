@@ -1,0 +1,6 @@
+1. Start
+2. Input dokumen
+3. Proses dokumen : .pdf,,1mb
+4. Proses insert dokumen ke database
+5. Output : SQL
+6. End

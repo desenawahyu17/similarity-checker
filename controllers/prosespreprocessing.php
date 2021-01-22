@@ -111,6 +111,11 @@ if (isset($_POST['savepreprocessing'])) {
 
     // AMMBIL DATA TABEL SLANGWORD
     $ambil_slangword= $preprocessing->select_slangword();
+    $array_slang = array();
+    while($data = $ambil_slangword->fetch_object()){
+        $array_slang[] = $data -> slangword;
+        $array_kataAsli[] = $data -> kata_asli;
+    }
     
     //AMBIL DATA TABEL STOPWORD
     $ambil_stopword= $preprocessing->select_stopword();
@@ -154,11 +159,11 @@ if (isset($_POST['savepreprocessing'])) {
        
         // KONVERSI SLANGWORD KE KATA ASLINYA
         $string_noSlangword = $string_noAngkaKarakter;
-        while($data = $ambil_slangword->fetch_object()){
-            $string_noSlangword = str_replace($data -> slangword, $data ->kata_asli, $string_noSlangword);
-         }
+        for($i=0 ; $i < count($array_slang) ; $i++){
+            $string_noSlangword = str_replace($array_slang[$i], $array_kataAsli[$i], $string_noSlangword);
+        }
         array_push($array_slangword,$string_noSlangword);
-
+        
         // MENGHILANGKAN STOPWORD
         $string = explode(" ", $string_noSlangword);
         $string_noStopword = array();
@@ -215,9 +220,6 @@ if (isset($_POST['savepreprocessing'])) {
                         buttons: false,
                         closeOnClickOutside: false,
                         timer: 2000,
-                    })
-                    .then(function() {
-                        window.location = "http://localhost/Tugas%20Kuliah/Semester%207%20(Skripsweet)/Similarity_Checker/?page=dashboard";
                     });
                     </script>
                 ';
@@ -230,7 +232,6 @@ if (isset($_POST['savepreprocessing'])) {
             echo '</pre>';
         }
     }
-    
     // Set session variables
     $_SESSION["array_dataawal"] =$array_dataawal;
     $_SESSION["array_nim"] =$array_nim;

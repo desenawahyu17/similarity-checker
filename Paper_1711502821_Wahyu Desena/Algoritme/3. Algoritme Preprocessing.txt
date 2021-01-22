@@ -1,0 +1,11 @@
+1.  Start
+2.  Proses mengambil dokumen dari database
+3.  Input : dokumen dataset || data tes
+4.  Lakukan proses casefolding()
+5.  Lakukan proses cleaning text()
+6.  Lakukan proses slangword()
+7.  Lakukan proses stopword()
+8.  Lakukan proses penghapusan spasi
+9.  Output : dokumen bersih
+10. Proses simpan ke database
+11. End
