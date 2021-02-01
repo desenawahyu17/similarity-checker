@@ -37,7 +37,6 @@ foreach ($hasil_sessionfinger as $i=>$fingerprint1) {
 // var_dump($list_fingerprint[0], $list_fingerprint1);
 // echo"</pre>";
 // die();
-// $list_similarity = array();
 $data_urutDSC = array();
 
 for($a = 0; $a < count($list_fingerprint); $a++){
