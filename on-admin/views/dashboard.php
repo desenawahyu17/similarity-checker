@@ -14,10 +14,11 @@
 <div class="jumbotron">
 	<div class="row">
 		<h1 class="active"><a href="?page=dashboard"><i class="fa fa-home"></i></a><em> Home</em></h1>
-		<ol class="breadcrumb">
-			<h3 align="center">Deteksi Tingkat Kemiripan Abstrak Tugas Akhir Mahasiswa Menggunakan Algoritme <em>Winnowing</em> berbasis <em>N-Gram</em> dan <em>Jaccard Similarity</em> pada Universitas Budi Luhur</h3>
+		<ol class="breadcrumb d-flex justify-content-center">
+			<h3 class="text-center">Deteksi Tingkat Kemiripan Abstrak Tugas Akhir Mahasiswa Menggunakan Algoritme <em>Winnowing</em> berbasis <em>N-Gram</em> dan <em>Jaccard Similarity</em> pada Universitas Budi Luhur</h3>
+			<h5>1711502821 - Wahyu Desena</h5>
 		</ol>
-		<ol class="breadcrumb">
+		<!-- <ol class="breadcrumb">
 			<ul>
 				<h3 class="modal-title"><strong>Tentang Sistem</strong></h3>
 				<h5 align="justify">Sistem ini bertujuan untuk mengetahui nilai <em>similarity</em> pada dokumen abstrak skripsi mahasiswa Budi Luhur. Sistem ini diharapkan dapat memberikan keakurasian yang tepat dalam mengatasi tindakan suatu plagiarisme yang terjadi di dunia akademik, tepatnya di kampus Budi Luhur. </h5>
@@ -38,7 +39,7 @@
 					<ul><h6>- Setelah dokumen berhasil di <em>scan</em> maka nantinya akan terlihat hasil dari <em>similarity</em>nya</h6></ul>
 				</h5>
 			</ul>
-		</ol>
+		</ol> -->
 	</div>
 </div>
 <div class="jumbotron">

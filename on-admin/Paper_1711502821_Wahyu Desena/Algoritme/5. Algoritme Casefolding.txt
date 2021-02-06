@@ -1,0 +1,5 @@
+1. Start
+2. Proses strtolower(text)
+3. Output : string_kecil
+4. Simpan string_kecil
+5. End

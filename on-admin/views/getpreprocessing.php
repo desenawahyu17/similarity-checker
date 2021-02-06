@@ -62,7 +62,7 @@ if(@$_SESSION){
                                                 <li class="list-group-item"><strong><em>Case Folding</em></strong></br>
                                                     <?php echo $_SESSION["array_casefolding"][$i];?>
                                                 </li>
-                                                <li class="list-group-item"><strong>Menghilangkan Karakter Selain a-z</strong></br>
+                                                <li class="list-group-item"><strong><em>Cleaning</em></strong></br>
                                                     <?php echo $_SESSION["array_karakter"][$i];?>
                                                 </li>
                                                 <li class="list-group-item"><strong><em>Slang Word</em></strong></br>

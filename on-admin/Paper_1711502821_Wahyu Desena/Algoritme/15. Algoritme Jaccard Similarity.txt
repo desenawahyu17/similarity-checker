@@ -1,0 +1,30 @@
+1.  Start
+2.  fingerprint_dataset, fingerprint_datates
+3.  data_fingerprint = array()
+4.  a = 0 
+5.  if (a < count(fingerprint_dataset)
+6.  	x_irisan_y = array(), jumlah_x_n_y = 0
+7.  	x_union_y = array(), jumlah x_u_y = 0
+8.  	y = 0
+9.  	if (y < count(fingerprint_datates)
+10.	 	x = 0
+11.	 	if (x < count(fingerprint_datates[a])
+12.	 		if (fingerprint_datates[y] == fingerprint_dataset[a][x]
+13.	 			Simpan nilai irisan fingerprint_datates[y]
+14.	 		else
+15.	 		x++
+16.	 	else
+17.	 	Simpan nilai union fingerprint_dataset[a][x]
+18.	 	Simpan nilai fingerprint_dataset[y]
+19.	 	y++
+20.	 else
+21.	 jumlah_x_n_y = count(x_irisan_y), jumlah_x_u_y = count(x_union_y)
+22.	 jaccard = 0
+23.	 jaccard = (jumlah_x_n_y/jumlah_x_u_y)*100
+24.	 Simpan jaccard
+25.	 Kembali ke nomor 4
+26.	 Endif
+27. else
+28. Output : Nilai Similarity
+29. Endif
+30. End

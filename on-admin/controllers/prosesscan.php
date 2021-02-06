@@ -238,9 +238,8 @@ function r_hash($ngram,$n){
         $hasil = 0;
 
         for($j=0; $j<count($char[$i]); $j++) {
-            // Penjabaran tabel 4.5
+            // Penjabaran tabel 4.10
             $hasil =  $hasil + $char[$i][$j] * pow($b, ($k-($j+1)));
-            // $hasil += $char[$i][$j] * pow($b, ($k-($j+1)));
         }
         $hasil_hash[$i] = $hasil;
     }

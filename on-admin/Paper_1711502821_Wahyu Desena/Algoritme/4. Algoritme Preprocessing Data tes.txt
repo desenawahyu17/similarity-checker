@@ -1,0 +1,9 @@
+1. Start
+2. Proses text_datates
+3. Lakukan proses Casefolding (string)
+4. Lakukan proses Cleaning (noAngkaKarakter)
+5. Lakukan proses Slangword (string_noSlangword)
+6. Lakukan proses Stopword (string_nostopword)
+7. Lakukan proses Menghilangkan spasi(string)
+8. Simpan di variabel string
+9. End

@@ -32,7 +32,7 @@
   </a>
   <div class="logo">
    Tugas Akhir - Text Mining - Similarity Checker
-    <a href="./../logout.php" class="text-center">
+    <a href="./../logout.php" class="float-right mr-3">
         <button type="button" class="btn btn-success"><i class="fa fa-power-off"></i> Log Out</button>
     </a> 
   </div>

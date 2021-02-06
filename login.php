@@ -41,7 +41,7 @@
                 <input type="submit" class="btn btn-block btn-custom-green" value="LOGIN" />
                 
                 <div class="text-center forget">
-                    <p>Forgot Password ?</p>
+                    <!-- <p>Forgot Password ?</p> -->
                 </div>
             </form>
         </div>

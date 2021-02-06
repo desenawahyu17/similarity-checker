@@ -53,7 +53,7 @@ for($a = 0; $a < count($list_fingerprint); $a++){
 	for($y = 0; $y < count($list_fingerprint1); $y++){
 		for($x = 0; $x < count($list_fingerprint[$a]); $x++){
 			if($list_fingerprint1[$y] == $list_fingerprint[$a][$x]){
-				array_push($x_irisan_y,$list_fingerprint1[$y]);
+				array_push($x_irisan_y,$list_fingerprint1[$y]);  // $x_irisan_y[] = $list_fingerprint1[$y]
 			}
 			array_push($x_union_y,$list_fingerprint[$a][$x]);
 		}
@@ -72,9 +72,6 @@ for($a = 0; $a < count($list_fingerprint); $a++){
 	$jaccard = 0;
 	$jaccard = ($jumlah_x_n_y/$jumlah_x_u_y)*100;
 	$jaccard = round($jaccard,2);	
-	// rsort($list_similarity);
-	
-	// array_push($list_similarity,$jaccard);
 
 	array_push($data_urutDSC, [
 		"title" => $title[$a],

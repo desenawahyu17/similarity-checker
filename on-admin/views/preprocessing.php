@@ -11,7 +11,7 @@ if(@$_GET['act'] == ''){
 			<div class="col-lg-12">
 				<h1><i class="fa fa-file-pdf-o"></i><em> Preprocessing</em></h1>
 				<ol class="breadcrumb">
-					<li> Proses <em>Preprocessing</em> Dokument</li>
+					<li> Proses <em>Preprocessing Document Dataset</em></li>
 				</ol>
 			</div>
 			<!-- Button trigger modal -->
