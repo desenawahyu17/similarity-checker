@@ -1,5 +1,0 @@
-1. Start
-2. Menghilangkan karakter selain huruf a-z pada string_kecil
-3. Output : string_noAngkaKarakter
-4. Proses simpan string_noAngkaKarakter
-5. End

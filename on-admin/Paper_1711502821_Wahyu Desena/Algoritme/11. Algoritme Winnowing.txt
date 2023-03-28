@@ -1,7 +1,0 @@
-1. Start
-2. Proses Ngrams(ngram)
-3. Lakukan proses r_hash (hash)
-4. Lakukan proses wgram (window)
-5. Lakukan prose finger (fingerprint)
-6. Simpan fingerprint
-7. End

@@ -1,5 +1,0 @@
-1. Start
-2. str_replace(string)
-3. Output : string
-4. Simpan string
-5. End
